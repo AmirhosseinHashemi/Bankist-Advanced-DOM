@@ -9,6 +9,10 @@ const btnScrollTo = document.querySelector('.btn--scroll-to');
 const sectionOne = document.querySelector('#section--1');
 const navList = document.querySelector('.nav__links');
 
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+const tabs = document.querySelectorAll('.operations__tab');
+
 ///////// Modal window
 const openModal = function (e) {
   e.preventDefault();
@@ -50,9 +54,23 @@ btnScrollTo.addEventListener('click', function () {
 navList.addEventListener('click', function (e) {
   e.preventDefault();
   if (e.target.classList.contains('nav__link')) {
-    console.log(true);
     const id = e.target.getAttribute('href');
-    console.log(document.querySelector(id));
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
+});
+
+////////// Tabbed components
+tabsContainer.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab');
+  if (!clicked) return;
+
+  tabs.forEach(tab => tab.classList.remove('operations__tab--active'));
+  tabsContent.forEach(content =>
+    content.classList.remove('operations__content--active')
+  );
+
+  clicked.classList.add('operations__tab--active');
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
 });
