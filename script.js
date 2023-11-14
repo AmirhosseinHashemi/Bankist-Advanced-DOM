@@ -13,6 +13,8 @@ const tabsContainer = document.querySelector('.operations__tab-container');
 const tabsContent = document.querySelectorAll('.operations__content');
 const tabs = document.querySelectorAll('.operations__tab');
 
+const nav = document.querySelector('.nav');
+
 ///////// Modal window
 const openModal = function (e) {
   e.preventDefault();
@@ -74,3 +76,24 @@ tabsContainer.addEventListener('click', function (e) {
     .querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add('operations__content--active');
 });
+
+////////// Menu fade animation
+const handleHover = function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const linkHoverd = e.target;
+    const sibling = linkHoverd
+      .closest('.nav__links')
+      .querySelectorAll('.nav__link');
+    const logo = document.querySelector('.nav__logo');
+
+    sibling.forEach(link => {
+      if (link !== linkHoverd) {
+        link.style.opacity = this;
+      }
+    });
+    logo.style.opacity = this;
+  }
+};
+
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+nav.addEventListener('mouseout', handleHover.bind(1));
